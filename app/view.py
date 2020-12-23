@@ -7,7 +7,8 @@ def home(request):
     context = {
         'queryset': queryset
     }
-    return render(request, 'base.html', context)
+    return render(request, 'app/base.html', context)
+
 
 def create(request):
     form = CRUDFORM(request.POST or None)
@@ -19,18 +20,38 @@ def create(request):
     context = {
         "form":form
     }
-    return render(request, 'createform.html', context)
+    return render(request, 'app/createform.html', context)
 
-def update(request, pk):
-    data = CRUD.objects.get(id=pk)
-    
+def detail(request, detail_id):
+    # print(detail_id)
+    data = get_object_or_404(CRUD, pk=detail_id)
+    context = {
+        "data":data
+    }
+    return render(request, "app/detail.html", context)
+
+def update(request, id):                                         
+    # data =CRUD.objects.get(id=id) 
+    # or
+    data = get_object_or_404(CRUD, id=id)
+    form = CRUDFORM(instance=data)                                                               
 
     if request.method == "POST":
-        data(name=name, age=age, level=level)
-        data.save()
-        return redirect ('home')
-    return render(request, 'update.html')
+        form = CRUDFORM(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect ('home')
+    context = {
+        "form":form
+    }
+    return render(request, 'app/createform.html', context)
 
-        
+
+def delete(request, id):
+    data = get_object_or_404(CRUD, id=id) 
+    if request.method == 'POST':
+        data.delete()
+        return redirect('home')
+    return render(request, 'app/delete.html')
 
 

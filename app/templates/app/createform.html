@@ -8,18 +8,22 @@
 </head>
 <body>
     <div class="container mt-5">
-        <form method="POST" action="{% url 'create' %}">
+        <form method="POST" action="">
             {% csrf_token %}
             <div class="form-group mb-3">
                 {{form.name}}
+                {{form.name.errors}}
             </div>
             <div class="form-group mb-3">
                 {{form.age}}
+                {{form.age.errors}}
             </div>
             <div class="form-group mb-3">
                 {{form.level}}
+                {{form.level.errors}}
             </div>
             <input type="submit" class="btn btn-outline-success" >
+            
         </form>
     </div>
 </body>

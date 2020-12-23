@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+    
+    <div class="container mt-3">
+        <a href="{% url 'create'%}" >link to create a form</a>
+        <hr>
+        {% for data in queryset %}
+        <div class="list-group mb-3">
+            <a href="{% url 'update' data.id %}" >update</a>
+            <a href="{% url 'detail' data.id %}" class="list-group-item list-group-item-action">Name: {{data.name}}</a>
+            <!-- <a href="{{data.update_url}}" class="list-group-item list-group-item-action">Name: {{data.name}}</a> -->
+            <a href="#" class="list-group-item list-group-item-action">Age: {{data.age}}</a>
+            <a href="#" class="list-group-item list-group-item-action">Level: {{data.level}}</a>
+            <a href="{% url 'delete' data.id %}">delete</a>
+        </div>
+        {% endfor %}
+        <hr>
+
+        
+    </div>
+</body>
+</html>
